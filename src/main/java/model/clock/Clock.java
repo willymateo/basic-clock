@@ -3,16 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package clockElements;
+package model.clock;
 
 /**
  *
  * @author Willy Mateo
  */
-public class Minutes extends TimeElement{
-
-    public Minutes() {
-        super();
-        this.end = 60;
-    }
+public class Clock {
+    private HourFormat format;
+    
 }

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package clockElements;
+package model.clockElements;
 
 /**
  *
@@ -11,7 +11,7 @@ package clockElements;
  */
 public abstract class TimeElement implements Timed{
     private final int start;
-    protected int end;
+    private int end;
     private int value;
     private boolean ended;
 
@@ -27,6 +27,12 @@ public abstract class TimeElement implements Timed{
     public int getValue() {
         return value;
     }
+
+    public void setEnd(int end) {
+        this.end = end;
+    }
+    
+    public abstract void initializeEnd();
     
     @Override
     public void increment() {
@@ -50,10 +56,6 @@ public abstract class TimeElement implements Timed{
     @Override
     public String toString() {
         return String.valueOf(this.getValue());
-    }
-    
-    public void setEnd(int end) {
-        this.end = end;
     }
     
 }

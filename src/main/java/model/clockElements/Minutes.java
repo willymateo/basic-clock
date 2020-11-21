@@ -3,17 +3,21 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package clockElements;
+package model.clockElements;
 
 /**
  *
  * @author Willy Mateo
  */
-public class Seconds extends TimeElement{
+public class Minutes extends TimeElement{
 
-    public Seconds() {
+    public Minutes() {
         super();
-        this.end = 60;
+        initializeEnd();
     }
 
+    @Override
+    public void initializeEnd() {
+        this.setEnd(60);
+    }
 }

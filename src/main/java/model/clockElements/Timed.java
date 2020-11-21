@@ -3,17 +3,19 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package clockElements;
+package model.clockElements;
 
 /**
  *
  * @author Willy Mateo
  */
-public class Hour extends TimeElement{
-
-    public Hour() {
-        super();
-        this.end = 24;
-    }
+public interface Timed {
     
+    final int step = 1;
+    
+    void increment();
+    
+    void decrement();
+    
+    void reset();
 }

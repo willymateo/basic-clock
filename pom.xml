@@ -31,7 +31,7 @@
                 <artifactId>javafx-maven-plugin</artifactId>
                 <version>0.0.3</version>
                 <configuration>
-                    <mainClass>principal.App</mainClass>
+                    <mainClass>principal.GUI_Clock</mainClass>
                 </configuration>
             </plugin>
         </plugins>
