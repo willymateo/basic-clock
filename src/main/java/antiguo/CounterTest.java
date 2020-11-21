@@ -1,3 +1,5 @@
+package antiguo;
+
 public class CounterTest
 {
     public static void incrementTest()

@@ -1,3 +1,5 @@
+package antiguo;
+
 /**
  * CounterCollector class
  * @author Joris Berthelot <admin@eexit.net>
