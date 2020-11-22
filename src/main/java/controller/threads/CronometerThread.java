@@ -5,6 +5,7 @@
  */
 package controller.threads;
 
+import model.clock.HourFormat;
 import model.clockElements.TimeElement;
 
 /**
@@ -13,6 +14,7 @@ import model.clockElements.TimeElement;
  */
 public class CronometerThread implements Runnable{
 
+    private HourFormat hf;
     TimeElement timeElement;
 
     public CronometerThread(TimeElement timeElement) {
@@ -22,10 +24,19 @@ public class CronometerThread implements Runnable{
     @Override
     public void run() {
         try {
-            if (!timeElement.isEnded()) {
-                timeElement.increment();
-                Thread.sleep(1000);
+            int i = 0;
+        if (0 < hf.getTimeElements().length) {
+            while (i < hf.getTimeElements().length) {
+                hf.getTimeElements()[i].increment();
+                if (hf.getTimeElements()[i].isEnded()) {
+                    hf.getTimeElements()[i].reset();
+                    i++;
+                } else {
+                    Thread.sleep(1000);
+                }
             }
+        }
+            
         } catch (InterruptedException ex) {
             System.out.println("Algo inesperado sucedió:" +ex);
         }

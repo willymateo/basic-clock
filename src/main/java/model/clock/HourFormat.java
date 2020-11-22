@@ -24,6 +24,25 @@ public class HourFormat {
         Thread minThread = new Thread(new CronometerThread(timeElements[1]));
         Thread secThread = new Thread(new CronometerThread(timeElements[2]));
         
+        if (!secThread.isAlive()) {
+            
+        }
+        
+        if (timeElements[2].isEnded()) {
+            
+        }
+        
+        
+        for (TimeElement timeElement : timeElements) {
+            while (!timeElement.isEnded()) {
+                timeElement.increment();
+            }
+            timeElement.reset();
+        }
+    }
+
+    public TimeElement[] getTimeElements() {
+        return timeElements;
     }
     
     @Override
