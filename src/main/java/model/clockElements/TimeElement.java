@@ -38,6 +38,9 @@ public abstract class TimeElement implements Timed{
     public void increment() {
         if (!isEnded()) {
             value += Timed.step;
+            if (value == end) {
+                ended = true;
+            }
         }
     }
 
@@ -45,11 +48,15 @@ public abstract class TimeElement implements Timed{
     public void decrement() {
         if (!isEnded()) {
             value -= Timed.step;
+            if (value == end) {
+                ended = true;
+            }
         }
     }
 
     @Override
     public void reset() {
+        value = start;
         ended = false;
     }
 

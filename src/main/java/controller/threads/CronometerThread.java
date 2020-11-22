@@ -22,8 +22,10 @@ public class CronometerThread implements Runnable{
     @Override
     public void run() {
         try {
-            timeElement.increment();
-            Thread.sleep(1000);
+            if (!timeElement.isEnded()) {
+                timeElement.increment();
+                Thread.sleep(1000);
+            }
         } catch (InterruptedException ex) {
             System.out.println("Algo inesperado sucedió:" +ex);
         }

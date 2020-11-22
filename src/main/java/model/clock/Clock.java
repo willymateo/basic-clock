@@ -11,5 +11,14 @@ package model.clock;
  */
 public class Clock {
     private HourFormat format;
+
+    public void work(){
+        
+    }
+    
+    @Override
+    public String toString() {
+        return format.toString();
+    }
     
 }

@@ -5,6 +5,7 @@
  */
 package model.clock;
 
+import controller.threads.CronometerThread;
 import model.clockElements.TimeElement;
 
 /**
@@ -18,6 +19,13 @@ public class HourFormat {
         this.timeElements = timeElements;
     }
 
+    public void work(){
+        Thread hourThread = new Thread(new CronometerThread(timeElements[0]));
+        Thread minThread = new Thread(new CronometerThread(timeElements[1]));
+        Thread secThread = new Thread(new CronometerThread(timeElements[2]));
+        
+    }
+    
     @Override
     public String toString() {
         String cadena = "";
