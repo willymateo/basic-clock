@@ -1,112 +1,36 @@
 # Basic Clock
 
-This is a very small Java project I developped for school. I'm not very good at Java but I tried to write something clean.
-Basic Clock has been developped to work into the console, there is not GUI version.
+Single Responsability Principle 
 
-    ~% javac *.java
-    ~% java CounterTest
-    *** COUNTER INCREMENT CAMPAIGN TEST START ***
-    [SUCCESS] START STATE
-    [SUCCESS] DEFAULT INCREMENT 100 STATE
-    [SUCCESS] RESET STATE
-    [SUCCESS] START 10 INCREMENT 15 STATE
-    [SUCCESS] START 0 END 10 INCREMENT 12 STATE
-    [SUCCESS] START 0 END 100 STEP 10 INCREMENT 12 STATE
-    [SUCCESS] SETTER
-    [SUCCESS] GETTER
-    *** COUNTER INCREMENT CAMPAIGN TEST END ***
-    *** COUNTER DECREMENT CAMPAIGN TEST START ***
-    [SUCCESS] START STATE
-    [SUCCESS] START 0 END 10 DECREMENT 12 STATE
-    [SUCCESS] RESET STATE
-    [SUCCESS] START 0 END 100 STEP 10 DECREMENT 12 STATE
-    [SUCCESS] SETTER
-    [SUCCESS] GETTER
-    *** COUNTER DECREMENT CAMPAIGN TEST END ***
-    ~% java Main
-    Current time: 01 23'58
-    Current time: 01 23'59
-    Current time: 01 24'00
-    Current time: 01 24'01
-    ...
+Problema: En la clase Clock y en CounterCollector se hacía funcionar el reloj para que inicie y se actualice el contenido de los counter elementos que poseían mediante el método work() y un while infinito. El reloj debería dejarle a otro módulo hacer ese trabajo. 
 
-## Methods
 
-### Counter class
+Solución: La creación de una clase Thread llamada CronometerThread que va a ser la encargada de llevar a cabo el avance del tiempo de cualquier reloj con un Formato de hora antes fijado. Por lo tanto, el método work() de Clock solo lleva a cabo la vida del hilo del tipo antes mencionado 
 
-    public void Counter();
-    public void Counter(int start);
-    public void Counter(int start, int end);
-    public void Counter(int start, int end, int step);
-    public Counter setValue(int value);
-    public int getValue();
-    public int getValue();
-    public int getStep();
-    public int getStart();
-    public int getEnd();
-    public boolean isEnded();
-    public Counter increment();
-    public Counter decrement();
-    public Counter reset();
-    public String toString();
 
-### CounterTest class
+Interface Segregation Principle 
 
-    public static void incrementTest();
-    public static void decrementTest();
-    public static void main(String[] args);
+Problema: En la clase Counter y Countercollector existían métodos repetidos que se sobreescribían y la varible step siempre va a ser 1 y se tenía que de igual manera ingresar su valor. 
 
-### CounterCollector class
 
-    public void CounterCollector(int nb_counters);
-    public void CounterCollector(int nb_counters, int[] values);
-    public void CounterCollector(int nb_counters, int[] start, int[] end, int[] step);
-    public Counter getCounter(int index);
-    public CounterCollector increment();
-    public CounterCollector decrement();
+Solucion: Encapsulamos en la Interfaz Timed todos los métodos principales que debe tener una clase que sea cronometrada que son incrementar, decrementar y reset; también una variable estática step que será el paso que siempre dé un elemento de reloj. 
 
-### Clock class extends CounterCollector
 
-    public void Clock();
-    public Clock work();
-    public Clock workOnce();
-    public Clock setFormat(String format);
-    public Clock setHrs(int hrs);
-    public Clock setMin(int min);
-    public Clock setSec(int sec);
-    public Clock setValue(int hrs, int min, int sec);
-    public String getHrs();
-    public String getMin();
-    public String getSec();
-    public String getValue();
-    public String getValue(String format);
-    public String toString();
+Open Closed Principle 
 
-## Changelog
+Problema: En la clase Clock se tenía un arreglo de longitud fija de los elementos dijados que solo eran: Horas, minutos, segundos. Por lo tanto, era muy rígida. 
 
-**2010-03-11 — v.1.01**
 
-*   ADDED: full Java documentation for classes
-*   CHANGED: Clock extends from CounterCollector
-*   CHANGED: Clock.work() and Clock.workOnce() throws InterruptedException
-*   CHANGED: Clock.getValue(String format) retuns on-demand formatted clock value instead of setting new format using Clock.setFormat()
+Solucion: De TimeElement pueden heredar varios elementos que en un futuro se desea que posea el reloj (horas, minutos, segundos, incluso milisegundos) sin dañar el programa. Pero queda cerrado para que se realice cambios que dañen el resto del proyecto. 
 
-**2010-03-07 — v.1.00**
 
-*   Initial release
+Dependency Inversion Principle 
 
-## Licence
+Problema: La clase Clock antigua extendía de CounterCollector y éste a su vez contenía un arreglos de Counter, era una jerarquía muy rígida y obsoleta. Si Counter no existía tampoco lo hacía CounterCollector peor aún Clock. Existía mucho nivel de acoplamiento en la antigua jerarquía. 
 
-Basic Clock uses the MIT Licence.
+Solucion:  TimeElement es abstracto, lo vuelve independiente de lo detalles que implementen los modulos, como horas, minutos y segundos. Pero cada nueva clase que se agregue deberá implementar el método initializeEnd() que fija la variable end.
 
-Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
-The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+Liskov Substitution Principle 
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-
-## Contact
-
-Copyright (c) 2010, Joris Berthelot
-
-Joris Berthelot <admin@eexit.net>
+Problema: En la clase clock se tenían variables estáticas que representaban valores fijos de start, end, step y el formato. Pero nos damos cuenta de que el valor de end va a ser diferente para cada tipo de dato de tiempo. Ej: Para hora es 24, para minutos y segundos va a ser 60.  
