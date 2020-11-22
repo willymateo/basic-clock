@@ -7,6 +7,7 @@ Problema: En la clase Clock y en CounterCollector se hacía funcionar el reloj p
 
 Solución: La creación de una clase Thread llamada CronometerThread que va a ser la encargada de llevar a cabo el avance del tiempo de cualquier reloj con un Formato de hora antes fijado. Por lo tanto, el método work() de Clock solo lleva a cabo la vida del hilo del tipo antes mencionado 
 
+![image](https://user-images.githubusercontent.com/73257661/99893730-cdb28780-2c4f-11eb-83b5-90227e217182.png)
 
 Interface Segregation Principle 
 
@@ -22,7 +23,7 @@ Problema: En la clase Clock se tenía un arreglo de longitud fija de los element
 
 
 Solucion: De TimeElement pueden heredar varios elementos que en un futuro se desea que posea el reloj (horas, minutos, segundos, incluso milisegundos) sin dañar el programa. Pero queda cerrado para que se realice cambios que dañen el resto del proyecto. 
-
+![image](https://user-images.githubusercontent.com/73257661/99893541-06059600-2c4f-11eb-97cf-4823fbb185c2.png)
 
 Dependency Inversion Principle 
 
@@ -30,6 +31,14 @@ Problema: La clase Clock antigua extendía de CounterCollector y éste a su vez 
 
 Solucion:  TimeElement es abstracto, lo vuelve independiente de lo detalles que implementen los modulos, como horas, minutos y segundos. Pero cada nueva clase que se agregue deberá implementar el método initializeEnd() que fija la variable end.
 
+
+![image](https://user-images.githubusercontent.com/73257661/99893595-714f6800-2c4f-11eb-927b-82c84a34fced.png)
+
+
+![image](https://user-images.githubusercontent.com/73257661/99893599-8af0af80-2c4f-11eb-9859-6b90a1a36986.png)
+
+
+![image](https://user-images.githubusercontent.com/73257661/99893654-a8257e00-2c4f-11eb-9e89-fa99d1ff280e.png)
 
 Liskov Substitution Principle 
 
